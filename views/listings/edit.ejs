@@ -1,0 +1,111 @@
+<% layout("/layouts/boilerplate") %>
+<body>
+    <% if (success) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+    <% if (error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% } %>
+
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <form method="POST" enctype="multipart/form-data" action="/listings/<%=listing._id%>?_method=PUT" class="needs-validation" id="editForm">
+                <h2>Edit Your Listing</h2>
+                <br>
+
+                <!-- Title Field -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" id="title" name="listing[title]" class="form-control" value="<%=listing.title%>" required>
+                    <div class="invalid-feedback">
+                        Please provide a title.
+                    </div>
+                </div>
+                <br>
+                
+                <!-- Description Field -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <textarea id="description" name="listing[description]" class="form-control" required><%=listing.description%></textarea>
+                    <div class="invalid-feedback">
+                        Please provide a description.
+                    </div>
+                </div>
+                <br>
+                
+                <!-- Current Image Display -->
+                <% if (listing.image && listing.image.url) { %>
+                <div class="mb-3">
+                    <label class="form-label">Current Image:</label>
+                    <img src="<%= listing.image.url %>" class="img-thumbnail" style="max-width: 200px; display: block;">
+                </div>
+                <% } %>
+                
+                <!-- New Image Upload Field -->
+                <div class="mb-3">
+                    <label for="image" class="form-label">Change Image:</label>
+                    <input type="file" id="image" name="listing[image]" class="form-control">
+                    <small class="text-muted">Leave blank to keep current image</small>
+                </div>
+                <br>
+                
+                <!-- Location Field -->
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location:</label>
+                    <input type="text" id="location" name="listing[location]" class="form-control" value="<%=listing.location%>" required>
+                    <div class="invalid-feedback">
+                        Please provide a location.
+                    </div>
+                </div>
+                
+                <!-- Price and Country Fields -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="price" class="form-label">Price:</label>
+                        <input type="number" id="price" name="listing[price]" class="form-control" 
+                               value="<%=listing.price%>" min="0" step="0.01" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid price.
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-8 mb-3">
+                        <label for="country" class="form-label">Country:</label>
+                        <input type="text" id="country" name="listing[country]" class="form-control" 
+                               value="<%=listing.country%>" required>
+                        <div class="invalid-feedback">
+                            Please provide a country.
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-dark edit-btn mt-3">Update Listing</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // Bootstrap Validation Script
+    (function() {
+        'use strict';
+        
+        const form = document.getElementById('editForm');
+        
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        }, false);
+    })();
+    </script>
+</body>

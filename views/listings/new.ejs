@@ -1,0 +1,117 @@
+<%layout("/layouts/boilerplate")%>
+<body>
+    <form action="/listings" method="POST" novalidate class="needs-validation" id="listingForm" enctype="multipart/form-data">
+    
+    <noscript>
+        <div class="alert alert-danger mb-4">
+            JavaScript is disabled
+        </div> 
+    </noscript>
+
+    <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <h3>Create a new Listing</h3>
+            <br>
+
+            <!-- Title Field -->
+            <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" id="title" name="listing[title]" placeholder="Enter title" 
+                    class="form-control" required>
+                <div class="invalid-feedback">
+                    Please provide a title.
+                </div>
+            </div>
+            <br>
+            
+            <!-- Description Field -->
+            <div class="mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea id="description" name="listing[description]" placeholder="Enter description" 
+                        class="form-control" required></textarea>
+                <div class="invalid-feedback">
+                    Please provide a description.
+                </div>
+            </div>
+            <br>
+            
+            <!-- Image Upload Field -->
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Image:</label>
+                <input type="file" id="image" name="listing[image]" 
+                    class="form-control" accept="image/*" required>
+                <div class="invalid-feedback">
+                    Please upload an image file.
+                </div>
+            </div>
+            <br>
+            
+            <!-- Price and Country Fields -->
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="price" class="form-label">Price:</label>
+                    <input type="number" id="price" name="listing[price]" placeholder="Enter price" 
+                        min="0" step="0.01" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid price (minimum ₹0).
+                    </div>
+                </div>
+                
+                <div class="col-md-8 mb-3">
+                    <label for="country" class="form-label">Country:</label>
+                    <input type="text" id="country" name="listing[country]" placeholder="Enter country" 
+                        class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please provide a country.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Location Field -->
+            <div class="mb-3">
+                <label for="location" class="form-label">Location:</label>
+                <input type="text" id="location" name="listing[location]" placeholder="Enter location" 
+                    class="form-control" required>
+                <div class="invalid-feedback">
+                    Please provide a location.
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-dark add-btn mt-3">Add Listing</button>
+        </div>
+    </div>
+    </form>
+
+    <!-- Bootstrap Validation JavaScript -->
+    <script>
+    (function() {
+        'use strict'
+        
+        const form = document.getElementById('listingForm')
+        
+        // Real-time validation
+        const inputs = form.querySelectorAll('.form-control[required]');
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.checkValidity()) {
+                    input.classList.remove('is-invalid')
+                    input.classList.add('is-valid')
+                } else {
+                    input.classList.remove('is-valid')
+                    input.classList.add('is-invalid')
+                }
+            });
+        });
+
+        // Form submission handling
+        form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            
+            form.classList.add('was-validated')
+        }, false)
+    })()
+    </script>
+</body>

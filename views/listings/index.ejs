@@ -1,0 +1,169 @@
+<%layout("/layouts/boilerplate")%> 
+
+<style>
+  #filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    /* background-color: red; */
+  }
+  .filter {
+    margin: 1rem;
+    text-align: center;
+    opacity: 0.7;
+    /* background-color: white; */
+  }
+  .filter:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+  .filter p {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+  }
+  .tax-switch-container {
+    margin-left: 2px;
+    padding: 1rem;
+  }
+  .tax-info {
+    display: none;
+  }
+
+
+  .listing-link {
+    text-decoration: none;
+    color: inherit;
+  }
+  .listing-card {
+    transition: transform 0.2s;
+    margin-bottom: 1.5rem;
+  }
+  .listing-card:hover {
+    transform: scale(1.02);
+  }
+
+  .tax-toggle{
+    border: 1px solid black;
+    border-radius:1rem ;
+    padding: auto;
+    margin: 5rem;
+    display: flex;
+    align-items: center;
+  }
+</style>
+
+<body>
+  <% if (success) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= success %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <% if (error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+
+  <h1 class="mb-4">All Listings</h1>
+
+  <div id="filters">
+    <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      <p>Trending</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      <p>Rooms</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain-city"></i></div>
+      <p>Iconic cities</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain"></i></div>
+      <p>Mountains</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      <p>Castles</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      <p>Amazing Pools</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-campground"></i></div>
+      <p>Camping</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-cow"></i></div>
+      <p>Farms</p>
+    </div>
+
+    <div class="filter">
+      <div><i class="fa-solid fa-snowflake"></i></div>
+      <p>Arctic</p>
+    </div>
+
+      
+
+    <div class="filter">
+      <div><i class="fa-solid fa-sailboat"></i></div>
+      <p>Boats</p>
+    </div>
+
+
+<div class="tax-toggle">
+    <div class="tax-switch-container">
+      <div class="form-check-reverse form-switch ">
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+      </div>
+    </div>
+  </div>
+</div>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% for(listing of allListings) { %>
+      <div class="col">
+        <a href="/listings/<%=listing._id%>" class="listing-link">
+          <div class="card h-100 listing-card">
+            <img src="<%=listing.image.url%>" class="card-img-top" alt="listing image" style="height: 20rem; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title"><%=listing.title%></h5>
+              <p class="card-text">
+                <%= "₹" + listing.price.toLocaleString("en-IN") %>
+                <span class="tax-info">+18% GST</span>
+              </p>
+            </div>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const taxSwitch = document.querySelector("#flexSwitchCheckDefault");
+      
+      if (taxSwitch) {
+        taxSwitch.addEventListener("change", function() {
+          const taxInfoElements = document.querySelectorAll(".tax-info");
+          
+          taxInfoElements.forEach(element => {
+            element.style.display = this.checked ? "inline" : "none";
+          });
+        });
+      }
+    });
+  </script>
+</body>

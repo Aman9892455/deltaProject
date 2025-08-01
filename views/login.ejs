@@ -1,0 +1,64 @@
+<% layout('/layouts/boilerplate') %>
+
+<div class="row mt-3">
+    <% if (error) { %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= error %>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+<% } %>
+    <h1 class="col-6 offset-3 text-center">Login on WonderLust</h1>
+
+    <div class="col-md-6 offset-md-3">
+        <form action="/login" method="POST" class="needs-validation" novalidate>
+
+            <!-- Username Field -->
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" 
+                       placeholder="Enter username" required>
+                <div class="invalid-feedback">
+                    Please provide a username.
+                </div>
+            </div>
+
+        
+
+            <!-- Password Field -->
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" 
+                       placeholder="Enter password" required minlength="6">
+                <div class="invalid-feedback">
+                    Password must be at least 6 characters.
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button class="btn btn-primary" type="submit">Login</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<!-- Client-side Validation Script -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('.needs-validation');
+    
+    form.addEventListener('submit', (event) => {
+        if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        
+        form.classList.add('was-validated');
+    }, false);
+});
+</script>
+
+
+
