@@ -1,21 +1,20 @@
 {
-  "dependencies": {
-  "cloudinary": "^1.21.0",
-  "multer-storage-cloudinary": "^4.0.0"
-},
-"engines":  {
-  "node":"v22.16.0"
-  },
   "name": "deltaproject",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "build": "echo 'No build required' && exit 0",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "engines": {
+    "node": "v22.16.0"
+  },
   "dependencies": {
     "cloudinary": "^2.7.0",
     "connect-flash": "^0.1.1",
