@@ -33,7 +33,8 @@ const passport=require("passport")
 const LocaleStrategy=require("passport-local")
 const User=require("./models/user.js")
 
- 
+
+
 
 const app = express();
 
@@ -134,7 +135,9 @@ app.use("/",userRouter)
 
 
 
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 
 
